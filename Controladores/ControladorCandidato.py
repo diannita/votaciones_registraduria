@@ -2,12 +2,15 @@
 
 from Modelos.Candidato import Candidato
 from Repositorios.RepositorioCandidato import RepositorioCandidato
+from Repositorios.RepositorioPartido import RepositorioPartido
+from Modelos.Partido import Partido
 
 class ControladorCandidato():
     #creacion de metodos
     #metodo init
     def __init__(self):
         self.repositorioCandidato = RepositorioCandidato()
+        self.repositorioPartido = RepositorioPartido()
         print("creando controlador Candidato") #print informativo
 
     #metodos de la operacion del CRUD
@@ -47,4 +50,12 @@ class ControladorCandidato():
         actualizarCandidato.nombre = candidatoDatos["nombre"]
         actualizarCandidato.apellido = candidatoDatos["apellido"]
         return self.repositorioCandidato.update(id, actualizarCandidato)
+
+
+    #Relacion partido y candidato
+    def asignarPartido(self, id, id_partido):
+        candidatoActual = Candidato(self.repositorioCandidato.findById(id))
+        partidoActual = Partido(self.repositorioPartido.findById(id_partido))
+        candidatoActual.partido = partidoActual #crea un nuevo campo en MongoDB haciendo una referencia entre depart y materia
+        return self.repositorioCandidato.save(candidatoActual)
 

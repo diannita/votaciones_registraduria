@@ -41,5 +41,4 @@ class ControladorMesa():
         return self.repositorioMesa.update(id, actualizarMesa)
 
 
-    #Relacion departamento y materia
 

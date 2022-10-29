@@ -2,7 +2,7 @@ from Repositorios.RepositorioPartido import RepositorioPartido
 from Modelos.Partido import Partido
 
 class ControladorPartido():
-    def _init_(self):
+    def __init__(self):
         self.repositorioPartido = RepositorioPartido()
         print("Creando Controlado de Partido")
 
@@ -14,7 +14,7 @@ class ControladorPartido():
     def mostrarPartido(self, id):
         print("Mostrando el Partido con ID:"+str(id))
         elPartido = Partido(self.repositorioPartido.findById(id))
-        return elPartido._dict_
+        return elPartido.__dict__
 
     def mostrarPartidos(self):
         print("Listar todos los Partidos")

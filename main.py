@@ -10,12 +10,14 @@ from waitress import serve #desplegar y ejecutar los servicios en el localhost
 #importando los controladores
 from Controladores.ControladorCandidato import ControladorCandidato
 from Controladores.ControladorMesa import  ControladorMesa
+from Controladores.ControladorPartido import ControladorPartido
 
 app = Flask(__name__) #creacion instancia del servidor
 cors = CORS(app)       #configuracion del cors
 
 miControladorCandidato = ControladorCandidato()
 miControladorMesa = ControladorMesa()
+miControladorPartido= ControladorPartido()
 
 #creacion de variable para mostrar rutas----------------------------------------------
 #Rutas Candidatos
@@ -82,37 +84,37 @@ def deleteMesa(id):
 
 #creacion de variable para mostrar rutas----------------------------------------------
 #Rutas Partido
-@app.route("/departamentos",methods=['POST'])
-def CrearDepartamento():
-    datos = request.get_json()
-    respuesta = miControladorDepartamento.crear(datos)
+@app.route("/partidos",methods =['POST'])
+def crearPartido():
+    data = request.get_json() #enviando informacion
+    dictPartido = miControladorPartido.create(data)
+    return jsonify(dictPartido) #convertir un dict a json
+
+@app.route("/partidos",methods=['GET'])
+def ObtenerPartidos():
+    respuesta = miControladorPartido.mostrarPartidos()
     return jsonify(respuesta)
 
-@app.route("/departamentos",methods=['GET'])
-def ObtenerDepartamentos():
-    respuesta = miControladorDepartamento.mostrarDepartamentos()
+@app.route("/partidos/<string:id>", methods=['GET'])
+def ObtenerPartido(id):
+    respuesta = miControladorPartido.mostrarPartido(id)
     return jsonify(respuesta)
 
-@app.route("/departamentos/<string:id>", methods=['GET'])
-def ObtenerDepartamento(id):
-    respuesta = miControladorDepartamento.mostrarDepartamento(id)
-    return jsonify(respuesta)
-
-@app.route("/departamentos/<string:id>", methods=['PUT'])
+@app.route("/partidos/<string:id>", methods=['PUT'])
 def ActualizarDepartamento(id):
     datos = request.get_json()
-    respuesta = miControladorDepartamento.actualizar(id,datos)
+    respuesta = miControladorPartido.update(id,datos)
     return jsonify(respuesta)
 
-@app.route("/departamentos/<string:id>", methods = ['DELETE'])
-def EliminarDepartamento(id):
-    respuesta = miControladorDepartamento.eliminar(id)
+@app.route("/partidos/<string:id>", methods = ['DELETE'])
+def EliminarPartido(id):
+    respuesta = miControladorPartido.delete(id)
     return jsonify(respuesta)
 
 #Ruta de departamento con materia
-@app.route("/materias/<string:id>/departamentos/<string:id_departamento>",methods=['PUT'])
-def AsignarDepartamento(id, id_departamento):
-    respuesta = miControladorMateria.asignarDepartamento(id,id_departamento)
+@app.route("/candidatos/<string:id>/partidos/<string:id_partido>",methods=['PUT'])
+def AsignarPartido(id, id_partido):
+    respuesta = miControladorCandidato.asignarPartido(id,id_partido)
     return jsonify(respuesta)
 #end Rutas Partido----------------------------------------------
 
