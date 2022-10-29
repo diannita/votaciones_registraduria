@@ -11,6 +11,7 @@ from waitress import serve #desplegar y ejecutar los servicios en el localhost
 from Controladores.ControladorCandidato import ControladorCandidato
 from Controladores.ControladorMesa import  ControladorMesa
 from Controladores.ControladorPartido import ControladorPartido
+from Controladores.ControladorResultados import ControladorResultados
 
 app = Flask(__name__) #creacion instancia del servidor
 cors = CORS(app)       #configuracion del cors
@@ -18,6 +19,7 @@ cors = CORS(app)       #configuracion del cors
 miControladorCandidato = ControladorCandidato()
 miControladorMesa = ControladorMesa()
 miControladorPartido= ControladorPartido()
+miControladorResultados = ControladorResultados()
 
 #creacion de variable para mostrar rutas----------------------------------------------
 #Rutas Candidatos
@@ -111,12 +113,59 @@ def EliminarPartido(id):
     respuesta = miControladorPartido.delete(id)
     return jsonify(respuesta)
 
-#Ruta de departamento con materia
+#Ruta de candidatos con partido
 @app.route("/candidatos/<string:id>/partidos/<string:id_partido>",methods=['PUT'])
 def AsignarPartido(id, id_partido):
     respuesta = miControladorCandidato.asignarPartido(id,id_partido)
     return jsonify(respuesta)
 #end Rutas Partido----------------------------------------------
+
+#creacion de variable para mostrar rutas----------------------------------------------
+#Rutas Resultados (Se realiza la creacion y manipulacion de los datos de resultados)
+#Ruta de resultados mesa y candidato
+@app.route("/resultados/candidato/<string:id_candidato>/mesa/<string:id_mesa>",methods=['POST'])
+def crearResultados(id_candidato,id_mesa):
+    data = request.get_json()
+    respuesta = miControladorResultados.crear(data,id_candidato,id_mesa)
+    return jsonify(respuesta)
+
+@app.route("/inscripciones",methods=['GET'])
+def mostrarInscripciones():
+    respuesta = miControladorInscripcion.mostrarInscripciones()
+    return jsonify(respuesta)
+
+@app.route("/inscripciones/<string:id>",methods = ['GET'])
+def mostrarInscripcion(id):
+    respuesta = miControladorInscripcion.mostrarInscripcion(id)
+    return jsonify(respuesta)
+
+@app.route("/inscripciones/<string:id>/estudiante/<string:id_estudiante>/materia/<string:id_materia>",methods = ['PUT'])
+def ActualizarInscripcion(id,id_estudiante,id_materia):
+    data = request.get_json()
+    respuesta = miControladorInscripcion.actualizar(id,data,id_estudiante,id_materia)
+    return jsonify(respuesta)
+
+@app.route("/inscripciones/<string:id>",methods =['DELETE'])
+def EliminarInscripcion(id):
+    respuesta = miControladorInscripcion.eliminar(id)
+    return jsonify(respuesta)
+
+@app.route("/inscripciones/materia/<string:id_materia>", methods =['GET'])
+def inscritosMateria(id_materia):
+    respuesta = miControladorInscripcion.listarInscritosMateria(id_materia)
+    return jsonify(respuesta)
+
+@app.route("/inscripciones/notas_mayores", methods =['GET'])
+def notasMayores():
+    respuesta = miControladorInscripcion.notaMasAltaporMateria()
+    return jsonify(respuesta)
+
+@app.route("/inscripciones/promedio/materia/<string:id_materia>", methods = ['GET'])
+def promedioMateria(id_materia):
+    respuesta = miControladorInscripcion.promedioNotasMateria(id_materia)
+    return jsonify(respuesta)
+
+#End Inscripcion----------------------------------------------
 
 
 #las siguientes lineas se define la ruta y el microservicio donde se va a desplegar
