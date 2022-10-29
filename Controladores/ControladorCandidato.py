@@ -40,11 +40,11 @@ class ControladorCandidato():
 
     #metodo actualizar
     def update(self, id, candidatoDatos):
-        print("se actualizo el candidato con id "+ str(id))
-        ActualizarCandidato = Candidato(self.repositorioCandidato.findById(id))
-        ActualizarCandidato.cedula = candidatoDatos["cedula"]
-        ActualizarCandidato.nombre_resolucion = candidatoDatos["numero_resolucion"]
-        ActualizarCandidato.nombre = candidatoDatos["nombre"]
-        ActualizarCandidato.apellido = candidatoDatos["apellido"]
-        return self.repositorioCandidato.update(id, ActualizarCandidato)
+        print("se actualizo el candidato con id " + str(id))
+        actualizarCandidato = Candidato(self.repositorioCandidato.findById(id))
+        actualizarCandidato.cedula = candidatoDatos["cedula"]
+        actualizarCandidato.nombre_resolucion = candidatoDatos["nombre_resolucion"]
+        actualizarCandidato.nombre = candidatoDatos["nombre"]
+        actualizarCandidato.apellido = candidatoDatos["apellido"]
+        return self.repositorioCandidato.update(id, actualizarCandidato)
 

@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03d68ff4-d67a-4167-b214-1295356e5f7f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Controladores/ControladorMesa.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controladores/ControladorPartido.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modelos/Mesa.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modelos/Partido.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Repositorios/RepositorioMesa.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Repositorios/RepositorioPartido.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controladores/ControladorCandidato.py" beforeDir="false" afterPath="$PROJECT_DIR$/Controladores/ControladorCandidato.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,5 +59,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Controladores/ControladorCandidato.py</url>
+          <line>29</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
