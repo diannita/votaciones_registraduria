@@ -1,0 +1,7 @@
+{
+  "url-backend": "127.0.0.1",
+  "port": 9999,
+
+  "data-db-connection": "\nclient = pymongo.MongoClient(\"mongodb+srv://monkey:Monkey123@cluster0.2xsc4e1.mongodb.net/?retryWrites=true&w=majority\")\ndb = client.test\n",
+  "name-db": "bd-votaciones_registraduria"
+}
