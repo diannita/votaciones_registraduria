@@ -14,16 +14,14 @@ class ControladorResultados():
         self.repositorioMesa = RepositorioMesa()
         self.repositorioCandidato = RepositorioCandidato()
 
-
-    def create(self, infoResultados,id_mesa,id_candidato):
-        print("crear Resultados")
+    def create(self, infoResultados, id_candidato, id_mesa):
+        print("crear Inscripcion")
         crearResultados = Resultados(infoResultados)
-        mesa = Mesa(self.repositorioMesa.findById(id_mesa))
         candidato = Candidato(self.repositorioCandidato.findById(id_candidato))
-        crearResultados.mesa = mesa
+        mesa = Mesa(self.repositorioMesa.findById(id_mesa))
         crearResultados.candidato = candidato
+        crearResultados.mesa = mesa
         return self.repositorioResultados.save(crearResultados)
-
 
     def mostrarResultado(self, id):
         print("Mostrando el Resultados con ID:"+str(id))
@@ -49,15 +47,15 @@ class ControladorResultados():
         resultado.candidato = candidato
         return self.repositorioResultados.save(resultado)
 
-
-    # obtener todos los inscritos en una candidato
-    def listarResultados(self,id_candidato):
-        return self.repositorioResultados.getListadoInscritosEnCandidato(id_candidato)
-
-    # obtener la mayor nota en candidatos
-    def notaMasAltaPorCandidato(self):
-        return self.repositorioResultados.getMayorNotaporCurso()
-
-    # obtener promedio de notas candidatos
-    def promedioCandidatos(self, id_candidato):
-        return self.repositorioResultados.promedioNotasEnCandidato(id_candidato)
+    #
+    # # obtener todos los inscritos en una candidato
+    # def listarResultados(self,id_candidato):
+    #     return self.repositorioResultados.getListadoInscritosEnCandidato(id_candidato)
+    #
+    # # obtener la mayor nota en candidatos
+    # def notaMasAltaPorCandidato(self):
+    #     return self.repositorioResultados.getMayorNotaporCurso()
+    #
+    # # obtener promedio de notas candidatos
+    # def promedioCandidatos(self, id_candidato):
+    #     return self.repositorioResultados.promedioNotasEnCandidato(id_candidato)

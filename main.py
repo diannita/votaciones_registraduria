@@ -123,47 +123,47 @@ def AsignarPartido(id, id_partido):
 #creacion de variable para mostrar rutas----------------------------------------------
 #Rutas Resultados (Se realiza la creacion y manipulacion de los datos de resultados)
 #Ruta de resultados mesa y candidato
-@app.route("/resultados/candidato/<string:id_candidato>/mesa/<string:id_mesa>",methods=['POST'])
+@app.route("/resultados/candidatos/<string:id_candidato>/mesas/<string:id_mesa>",methods=['POST'])
 def crearResultados(id_candidato,id_mesa):
     data = request.get_json()
-    respuesta = miControladorResultados.crear(data,id_candidato,id_mesa)
+    respuesta = miControladorResultados.create(data,id_candidato,id_mesa)
     return jsonify(respuesta)
 
-@app.route("/inscripciones",methods=['GET'])
+@app.route("/resultados",methods=['GET'])
 def mostrarInscripciones():
-    respuesta = miControladorInscripcion.mostrarInscripciones()
+    respuesta = miControladorResultados.mostrarResultados()
     return jsonify(respuesta)
 
-@app.route("/inscripciones/<string:id>",methods = ['GET'])
-def mostrarInscripcion(id):
-    respuesta = miControladorInscripcion.mostrarInscripcion(id)
+@app.route("/resultados/<string:id>",methods = ['GET'])
+def mostrarResultados(id):
+    respuesta = miControladorResultados.mostrarResultado(id)
     return jsonify(respuesta)
 
-@app.route("/inscripciones/<string:id>/estudiante/<string:id_estudiante>/materia/<string:id_materia>",methods = ['PUT'])
-def ActualizarInscripcion(id,id_estudiante,id_materia):
+@app.route("/resultados/<string:id>/candidato/<string:id_candidato>/mesa/<string:id_mesa>",methods = ['PUT'])
+def ActualizarResultados(id,id_candidato,id_mesa):
     data = request.get_json()
-    respuesta = miControladorInscripcion.actualizar(id,data,id_estudiante,id_materia)
+    respuesta = miControladorResultados.update(id,data,id_candidato,id_mesa)
     return jsonify(respuesta)
 
-@app.route("/inscripciones/<string:id>",methods =['DELETE'])
-def EliminarInscripcion(id):
-    respuesta = miControladorInscripcion.eliminar(id)
-    return jsonify(respuesta)
-
-@app.route("/inscripciones/materia/<string:id_materia>", methods =['GET'])
-def inscritosMateria(id_materia):
-    respuesta = miControladorInscripcion.listarInscritosMateria(id_materia)
-    return jsonify(respuesta)
-
-@app.route("/inscripciones/notas_mayores", methods =['GET'])
-def notasMayores():
-    respuesta = miControladorInscripcion.notaMasAltaporMateria()
-    return jsonify(respuesta)
-
-@app.route("/inscripciones/promedio/materia/<string:id_materia>", methods = ['GET'])
-def promedioMateria(id_materia):
-    respuesta = miControladorInscripcion.promedioNotasMateria(id_materia)
-    return jsonify(respuesta)
+# @app.route("/inscripciones/<string:id>",methods =['DELETE'])
+# def EliminarInscripcion(id):
+#     respuesta = miControladorInscripcion.eliminar(id)
+#     return jsonify(respuesta)
+#
+# @app.route("/inscripciones/materia/<string:id_materia>", methods =['GET'])
+# def inscritosMateria(id_materia):
+#     respuesta = miControladorInscripcion.listarInscritosMateria(id_materia)
+#     return jsonify(respuesta)
+#
+# @app.route("/inscripciones/notas_mayores", methods =['GET'])
+# def notasMayores():
+#     respuesta = miControladorInscripcion.notaMasAltaporMateria()
+#     return jsonify(respuesta)
+#
+# @app.route("/inscripciones/promedio/materia/<string:id_materia>", methods = ['GET'])
+# def promedioMateria(id_materia):
+#     respuesta = miControladorInscripcion.promedioNotasMateria(id_materia)
+#     return jsonify(respuesta)
 
 #End Inscripcion----------------------------------------------
 
