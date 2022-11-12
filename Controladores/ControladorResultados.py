@@ -36,15 +36,15 @@ class ControladorResultados():
         print("Se elimino los Resultados con el id: "+str(id))
         return self.repositorioResultados.delete(id)
 
-    def update(self, id, ResultadosDatos, id_mesa, id_candidato):
+    def update(self, id, ResultadosDatos, id_candidato, id_mesa):
         print("Se Actualizo el Resultados con id: " + str(id))
         resultado = Resultados(self.repositorioResultados.findById(id))
-        resultado.numero_mesa = ResultadosDatos["numeromesa"]
-        resultado.id_partido = ResultadosDatos["partido"]
-        mesa = Mesa(self.repositorioMesa.findById(id_mesa))
+        resultado.numeromesa = ResultadosDatos["numeromesa"]
+        resultado.partido = ResultadosDatos["partido"]
         candidato = Candidato(self.repositorioCandidato.findById(id_candidato))
-        resultado.mesa = mesa
-        resultado.candidato = candidato
+        mesa = Mesa(self.repositorioMesa.findById(id_mesa))
+        resultado.estudiante = candidato
+        resultado.materia = mesa
         return self.repositorioResultados.save(resultado)
 
     #
