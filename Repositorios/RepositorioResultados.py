@@ -3,44 +3,42 @@ from Modelos.Resultados import Resultados
 from bson import ObjectId
 
 class RepositorioResultados(InterfaceRepositorio[Resultados]):
-    #Esta funcion nos muestra el listado de los candidatos que con cedulas inscritas por mesa
-    def getListadoResultadoVotacion(self, id_mesa):
-        theQuery = {"mesa.$id": ObjectId(id_mesa)}
-        return self.query(theQuery)
+    def getListResultadosCandidato(self, id_candidato):
+        query = {"Candidato.$id": ObjectId(id_candidato)}
+        return self.query(query)
 
 
-    #Esta funcion nos muestra quien obtuvo la mayor numero de cedulas inscriptas en la mesa
-    #Group - esta operacion de agregacion agrupara las mesas por id para buscar cada una en las mesas
-    #mayor numero por mesa
-    def getMayorNumeroPorMesa(self):
-        query = {
-            "$group": {
-                "_id": "$mesa",
-                "max": {
-                    "$max": "$numero_mesa"
-                },
-                "doc": {
-                    "$first": "$$ROOT"
-                }
-            }
-        }
-        pipeline = [query]
-        return self.queryAggregation(pipeline)
 
 
-    #buscar el promedio de la materias de todos los estudiantes
-    def promedioNotasEnMateria(self, id_materia):
-        query1 = {
-                     "$match": {"materia.id": ObjectId(id_materia)}
-                 },
-        query2 = {
-            "$group": {
-                "_id": "$materia",
-                "promedio": {
-                    "$avg": "$nota_final"
-                }
-            }
-        }
-        pipeline = [query1, query2]
-        return self.queryAggregation(pipeline)
+
+
+
+
+
+    # Devuelve los candidatos votados en la mesa
+    # def getListadoCandidatosInscritosMesa(self, id_mesa):
+    #     theQuery = {"mesa.$id": ObjectId(id_mesa)}
+    #     return self.query(theQuery)
+    #
+    # # Función que revisa el canadidato votado en cada mesa
+    # def getListadoMesasCandidatoInscrito(self, id_candidato):
+    #     theQuery = {"candidato.$id": ObjectId(id_candidato)}
+    #     return self.query(theQuery)
+    #
+    # # Devuelve la cédula más grande osea la cédula más nueva
+    # def getNumeroCedulaMayorCandidato(self):
+    #     query1 = {
+    #         "$group": {
+    #             "_id": "$candidato",
+    #             "Total votos en todas las mesas": {
+    #                 "$sum": 1
+    #             },
+    #             "doc": {"$first": "$$ROOT"
+    #                     }
+    #         },
+    #     }
+    #     pipeline = [query1]
+    #     return self.queryAggregation(pipeline)
+
+
 

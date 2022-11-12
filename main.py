@@ -12,6 +12,7 @@ from Controladores.ControladorCandidato import ControladorCandidato
 from Controladores.ControladorMesa import  ControladorMesa
 from Controladores.ControladorPartido import ControladorPartido
 from Controladores.ControladorResultados import ControladorResultados
+from Controladores.ControladorResultadoPartido import ControladorResultadoPartido
 
 app = Flask(__name__) #creacion instancia del servidor
 cors = CORS(app)       #configuracion del cors
@@ -20,6 +21,7 @@ miControladorCandidato = ControladorCandidato()
 miControladorMesa = ControladorMesa()
 miControladorPartido= ControladorPartido()
 miControladorResultados = ControladorResultados()
+miControladorResultadoPartido = ControladorResultadoPartido()
 
 #creacion de variable para mostrar rutas----------------------------------------------
 #Rutas Candidatos
@@ -150,20 +152,48 @@ def EliminarRespuesta(id):
     respuesta = miControladorResultados.delete(id)
     return jsonify(respuesta)
 
-# @app.route("/inscripciones/materia/<string:id_materia>", methods =['GET'])
-# def inscritosMateria(id_materia):
-#     respuesta = miControladorInscripcion.listarInscritosMateria(id_materia)
-#     return jsonify(respuesta)
+
+
+# -----------GET Reportes------------
+# Candidatos inscritos
+@app.route("/resultados/candidato/<string:id_candidato>", methods = ['GET'])
+def inscritosEnCandidatos(id_candidato):
+    json = miControladorResultados.listarResultadosCandidato(id_candidato)
+    return jsonify(json)
+
+# Resultado de partidos
+@app.route("/resultadopartido", methods = ['GET'])
+def getResultadoPartido():
+    json = miControladorResultadoPartido.showallResultado()
+    return jsonify(json)
+
+# creacion de resultados partidos (mesas y partidos)
+@app.route("/resultadopartido/mesa/<string:idMesa>/partido/<string:idPartido>", methods = ['POST'])
+def crearResultadoMesaPartido(idMesa, idPartido):
+    data = request.get_json()
+    json = miControladorResultadoPartido.createResultado(data, idMesa, idPartido)
+    return jsonify(json)
+
+
+
+# Mirar los resultados de una mesa en particular
+# @app.route("/resultados/mesa/<string:id_mesa>", methods=["GET"])
+# def inscritosEnMesa(id_mesa):
+#     json = miControladorResultados.getListarCandidatosMesa(id_mesa)
+#     return jsonify(json)
 #
-# @app.route("/inscripciones/notas_mayores", methods =['GET'])
-# def notasMayores():
-#     respuesta = miControladorInscripcion.notaMasAltaporMateria()
-#     return jsonify(respuesta)
+# #Buscar un candidato en todas las mesas
+# @app.route("/resultados/mesas/<string:id_candidato>", methods=["GET"])
+# def inscritoEnMesas(id_candidato):
+#     json = miControladorResultados.getListarMesasDeInscritoCandidato(id_candidato)
+#     return jsonify(json)
 #
-# @app.route("/inscripciones/promedio/materia/<string:id_materia>", methods = ['GET'])
-# def promedioMateria(id_materia):
-#     respuesta = miControladorInscripcion.promedioNotasMateria(id_materia)
-#     return jsonify(respuesta)
+# #Buscar la cedula
+# @app.route("/resultados/documento", methods=["GET"])
+# def getMaxDocument():
+#     json = miControladorResultados.getMayorCedula()
+#     return jsonify(json)
+
 
 #End Inscripcion----------------------------------------------
 

@@ -43,19 +43,18 @@ class ControladorResultados():
         resultado.partido = ResultadosDatos["partido"]
         candidato = Candidato(self.repositorioCandidato.findById(id_candidato))
         mesa = Mesa(self.repositorioMesa.findById(id_mesa))
-        resultado.estudiante = candidato
+        resultado.candidato = candidato
         resultado.materia = mesa
         return self.repositorioResultados.save(resultado)
 
+    def listarResultadosCandidato(self, id_candidato):
+        return self.repositorioResultados.getListResultadosCandidato(id_candidato)
+
+    # def getListarCandidatosMesa(self, id_mesa):
+    #     return self.repositorioResultados.getListadoCandidatosInscritosMesa(id_mesa)
     #
-    # # obtener todos los inscritos en una candidato
-    # def listarResultados(self,id_candidato):
-    #     return self.repositorioResultados.getListadoInscritosEnCandidato(id_candidato)
+    # def getListarMesasDeInscritoCandidato(self, id_candidato):
+    #     return self.repositorioResultados.getListadoMesasCandidatoInscrito(id_candidato)
     #
-    # # obtener la mayor nota en candidatos
-    # def notaMasAltaPorCandidato(self):
-    #     return self.repositorioResultados.getMayorNotaporCurso()
-    #
-    # # obtener promedio de notas candidatos
-    # def promedioCandidatos(self, id_candidato):
-    #     return self.repositorioResultados.promedioNotasEnCandidato(id_candidato)
+    # def getMayorCedula(self):
+    #     return self.repositorioResultados.getNumeroCedulaMayorCandidato()
