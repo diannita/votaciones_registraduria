@@ -155,24 +155,53 @@ def EliminarRespuesta(id):
 
 
 # -----------GET Reportes------------
-# Candidatos inscritos
-@app.route("/resultados/candidato/<string:id_candidato>", methods = ['GET'])
-def inscritosEnCandidatos(id_candidato):
-    json = miControladorResultados.listarResultadosCandidato(id_candidato)
-    return jsonify(json)
-
-# Resultado de partidos
-@app.route("/resultadopartido", methods = ['GET'])
-def getResultadoPartido():
-    json = miControladorResultadoPartido.showallResultado()
-    return jsonify(json)
-
 # creacion de resultados partidos (mesas y partidos)
 @app.route("/resultadopartido/mesa/<string:idMesa>/partido/<string:idPartido>", methods = ['POST'])
 def crearResultadoMesaPartido(idMesa, idPartido):
     data = request.get_json()
     json = miControladorResultadoPartido.createResultado(data, idMesa, idPartido)
     return jsonify(json)
+
+# Resultado de todos los partidos
+@app.route("/resultadopartido", methods = ['GET'])
+def getResultadoPartido():
+    json = miControladorResultadoPartido.showallResultado()
+    return jsonify(json)
+
+# actualizar el listado de partido por mesa
+@app.route("/resultadopartido/<string:idR>/mesa/<string:idM>/partido/<string:idP>", methods = ['PUT'])
+def modificarResultadoPartido(idR, idM, idP):
+    data = request.get_json()
+    json = miControladorResultadoPartido.updateResultado(idR, idM, idP, data)
+    return jsonify(json)
+
+# eliminar resultado partido - mesa
+@app.route("/resultadopartido/<string:id>", methods = ['DELETE'])
+def eliminarResultadoPartido(id):
+    json = miControladorResultadoPartido.deleteResultado(id)
+    return jsonify(json)
+
+# obtener resultado de candidato inscrito por id
+@app.route("/resultados/candidato/<string:id_candidato>", methods = ['GET'])
+def inscritosEnCandidatos(id_candidato):
+    json = miControladorResultados.listarResultadosCandidato(id_candidato)
+    return jsonify(json)
+
+# obtener los resultados de partido por partido id
+@app.route("/resultadopartido/partido/<string:id>", methods = ['GET'])
+def partidosInscritos(id):
+    json = miControladorResultadoPartido.listarresultadospartido(id)
+    return jsonify(json)
+
+
+
+
+
+
+
+
+
+
 
 
 
