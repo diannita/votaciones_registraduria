@@ -140,16 +140,16 @@ def mostrarResultados(id):
     return jsonify(respuesta)
 
 @app.route("/resultados/<string:id>/candidato/<string:id_candidato>/mesa/<string:id_mesa>",methods = ['PUT'])
-def ActualizarResultados(id,id_candidato,id_mesa):
+def ActualizarResultados(id, id_candidato, id_mesa):
     data = request.get_json()
-    respuesta = miControladorResultados.update(id,data,id_candidato,id_mesa)
+    respuesta = miControladorResultados.update(id, data, id_candidato, id_mesa)
     return jsonify(respuesta)
 
-# @app.route("/inscripciones/<string:id>",methods =['DELETE'])
-# def EliminarInscripcion(id):
-#     respuesta = miControladorInscripcion.eliminar(id)
-#     return jsonify(respuesta)
-#
+@app.route("/resultados/<string:id>",methods =['DELETE'])
+def EliminarRespuesta(id):
+    respuesta = miControladorResultados.delete(id)
+    return jsonify(respuesta)
+
 # @app.route("/inscripciones/materia/<string:id_materia>", methods =['GET'])
 # def inscritosMateria(id_materia):
 #     respuesta = miControladorInscripcion.listarInscritosMateria(id_materia)
