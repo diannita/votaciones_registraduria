@@ -187,41 +187,23 @@ def inscritosEnCandidatos(id_candidato):
     json = miControladorResultados.listarResultadosCandidato(id_candidato)
     return jsonify(json)
 
-# obtener los resultados de partido por partido id
-# @app.route("/resultadopartido/partido/<string:id>", methods = ['GET'])
-# def partidosInscritos(id):
-#     json = miControladorResultadoPartido.listarresultadospartido(id)
-#     return jsonify(json)
+#Buscar los candidatos votados en una mesa
+@app.route("/resultados/mesa/<string:id_mesa>", methods=["GET"])
+def inscritosMesa(id_mesa):
+    json = miControladorResultados.getListarCandidatosMesa(id_mesa)
+    return jsonify(json)
 
+#Buscar el candidato en las mesas
+@app.route("/resultados/mesas/<string:id_candidato>", methods=["GET"])
+def inscritoEnMesas(id_candidato):
+    json = miControladorResultados.getListarMesasDeInscritoCandidato(id_candidato)
+    return jsonify(json)
 
-
-
-
-
-
-
-
-
-
-
-
-# Mirar los resultados de una mesa en particular
-# @app.route("/resultados/mesa/<string:id_mesa>", methods=["GET"])
-# def inscritosEnMesa(id_mesa):
-#     json = miControladorResultados.getListarCandidatosMesa(id_mesa)
-#     return jsonify(json)
-#
-# #Buscar un candidato en todas las mesas
-# @app.route("/resultados/mesas/<string:id_candidato>", methods=["GET"])
-# def inscritoEnMesas(id_candidato):
-#     json = miControladorResultados.getListarMesasDeInscritoCandidato(id_candidato)
-#     return jsonify(json)
-#
-# #Buscar la cedula
-# @app.route("/resultados/documento", methods=["GET"])
-# def getMaxDocument():
-#     json = miControladorResultados.getMayorCedula()
-#     return jsonify(json)
+#Buscar total de votos
+@app.route("/resultados/maxdocument", methods=["GET"])
+def getMaxDocument():
+    json = miControladorResultados.getMayorCedula()
+    return jsonify(json)
 
 
 #End Inscripcion----------------------------------------------
