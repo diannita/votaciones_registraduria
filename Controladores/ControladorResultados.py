@@ -50,11 +50,11 @@ class ControladorResultados():
     def listarResultadosCandidato(self, id_candidato):
         return self.repositorioResultados.getListResultadosCandidato(id_candidato)
 
-    # def getListarCandidatosMesa(self, id_mesa):
-    #     return self.repositorioResultados.getListadoCandidatosInscritosMesa(id_mesa)
-    #
-    # def getListarMesasDeInscritoCandidato(self, id_candidato):
-    #     return self.repositorioResultados.getListadoMesasCandidatoInscrito(id_candidato)
-    #
-    # def getMayorCedula(self):
-    #     return self.repositorioResultados.getNumeroCedulaMayorCandidato()
+    def getListarCandidatosMesa(self, id_mesa):
+        return self.repositorioResultado.getListadoCandidatosInscritosMesa(id_mesa)
+
+    def getListarMesasDeInscritoCandidato(self, id_candidato):
+        return self.repositorioResultado.getListadoMesasCandidatoInscrito(id_candidato)
+
+    def getMayorCedula(self):
+        return self.repositorioResultado.getNumeroCedulaMayorCandidato()

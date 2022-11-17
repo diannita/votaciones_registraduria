@@ -188,10 +188,10 @@ def inscritosEnCandidatos(id_candidato):
     return jsonify(json)
 
 # obtener los resultados de partido por partido id
-@app.route("/resultadopartido/partido/<string:id>", methods = ['GET'])
-def partidosInscritos(id):
-    json = miControladorResultadoPartido.listarresultadospartido(id)
-    return jsonify(json)
+# @app.route("/resultadopartido/partido/<string:id>", methods = ['GET'])
+# def partidosInscritos(id):
+#     json = miControladorResultadoPartido.listarresultadospartido(id)
+#     return jsonify(json)
 
 
 
